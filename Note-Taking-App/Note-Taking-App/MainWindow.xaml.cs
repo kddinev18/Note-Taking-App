@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.IO;
@@ -14,29 +13,52 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace Note_Taking_App
 {
+    public class FileName
+    {
+        public FileName()
+        {
+            name = String.Empty;
+        }
+        public FileName(string name)
+        {
+            this.name = name;
+        }
+
+        public string name { get; set; }
+        public override string ToString()
+        {
+            return name;
+        }
+    }
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ObservableCollection<FileName> fileNames { get; set; }
         private readonly string _path;
         public MainWindow()
         {
             InitializeComponent();
             _path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Notes");
             ListContent();
+            this.DataContext = this;
         }
         public void ListContent()
         {
             Directory.CreateDirectory(_path);
-            var fileNames = new DirectoryInfo(_path).GetFiles()
-                .Select(o => o.Name)
-                .ToList<string>();
+            fileNames = new ObservableCollection<FileName>(new DirectoryInfo(_path).GetFiles()
+                .Select(o => new FileName(o.Name))
+                .ToList<FileName>());
 
             NotesList.ItemsSource = fileNames;
+            NotesList.DataContext = fileNames;
         }
         private void Calendar_OnSelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
