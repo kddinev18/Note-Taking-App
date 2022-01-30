@@ -40,7 +40,7 @@ namespace Note_Taking_App
         }
         private void Calendar_OnSelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            var note = new NoteCreationWindow(string.Concat(NotesCalendar.SelectedDate.Value.ToString("dd-MM-yyyy"), ".txt"),_path);
+            var note = new NoteCreationWindow(NotesCalendar.SelectedDate.Value.ToString("dd-MM-yyyy"),_path);
             note.Show();
             this.Close();
         }

@@ -28,7 +28,22 @@ namespace Note_Taking_App
             _recommendedName = recommendedName;
             _path = path;
             InitializeComponent();
-            NoteName.Text = recommendedName.Split(".")[0];
+            NoteName.Text = recommendedName;
+        }
+
+        private void OpenMainWindow()
+        {
+            if (!File.Exists(System.IO.Path.Combine(_path, string.Concat(NoteName.Text, ".txt"))))
+            {
+                File.Create(System.IO.Path.Combine(_path, string.Concat(NoteName.Text, ".txt")));
+                var mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("The note already exist", "Message", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void NoteName_KeyDown(object sender, KeyEventArgs e)
@@ -36,30 +51,22 @@ namespace Note_Taking_App
             //Check if the user has pressed "Enter" while he is on "username" input field
             if (e.Key == Key.Enter)
             {
-                if (!File.Exists(_path))
-                {
-                    File.Create(System.IO.Path.Combine(_path, NoteName.Text));
-                }
-                else
-                {
-                    //error
-                }
+                OpenMainWindow();
             }
 
         }
 
-        private void NoteName_GotFocus(object sender, RoutedEventArgs e)
+        private void Continue_Click(object sender, EventArgs e)
         {
-            if (NoteName.Text == _recommendedName)
-                NoteName.Text = "";
-            else
-                NoteName.SelectAll();
+            OpenMainWindow();
         }
 
-        private void NoteName_LostFocus(object sender, RoutedEventArgs e)
+
+        private void Cancel_Click(object sender, EventArgs e)
         {
-            if (NoteName.Text == "")
-                NoteName.Text = _recommendedName;
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
 
     }

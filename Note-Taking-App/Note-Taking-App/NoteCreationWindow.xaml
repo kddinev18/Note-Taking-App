@@ -8,9 +8,9 @@
         Title="NoteCreationWindow" Height="400" Width="400">
     <Grid>
         <Label Content="Note Name" HorizontalAlignment="Center" Margin="0,32,0,0" VerticalAlignment="Top" FontSize="50"/>
-        <TextBox x:Name="NoteName" Text="" GotFocus="NoteName_GotFocus" LostFocus="NoteName_LostFocus" KeyDown="NoteName_KeyDown" MinWidth="300" FontSize="16" Padding="10 5 10 5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="67,287,0,0" VerticalAlignment="Top" Height="49" Width="129" FontSize="25"/>
-        <Button Content="Continue" HorizontalAlignment="Left" Margin="204,287,0,0" VerticalAlignment="Top" Height="49" Width="129" FontSize="25"/>
+        <TextBox x:Name="NoteName" Text="" KeyDown="NoteName_KeyDown" MinWidth="300" FontSize="16" Padding="10 5 10 5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
+        <Button Click="Cancel_Click" Content="Cancel" HorizontalAlignment="Left" Margin="67,287,0,0" VerticalAlignment="Top" Height="49" Width="129" FontSize="25"/>
+        <Button Click="Continue_Click" Content="Continue" HorizontalAlignment="Left" Margin="204,287,0,0" VerticalAlignment="Top" Height="49" Width="129" FontSize="25"/>
 
     </Grid>
 </Window>
