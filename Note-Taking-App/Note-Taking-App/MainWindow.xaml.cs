@@ -23,6 +23,16 @@ namespace Note_Taking_App
         public MainWindow()
         {
             InitializeComponent();
+            ListContent();
         }
+        public void ListContent()
+        {
+            var list = new List<string>();
+            list.Add("a");
+            list.Add("b");
+            list.Add("v");
+            NotesList.ItemsSource = list;
+        }
+
     }
 }
