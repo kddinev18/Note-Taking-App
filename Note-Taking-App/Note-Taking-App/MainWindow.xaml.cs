@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,18 +21,28 @@ namespace Note_Taking_App
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly string _path;
         public MainWindow()
         {
             InitializeComponent();
+            _path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Notes");
             ListContent();
         }
         public void ListContent()
         {
-            var list = new List<string>();
-            list.Add("a");
-            list.Add("b");
-            list.Add("v");
-            NotesList.ItemsSource = list;
+            Directory.CreateDirectory(_path);
+            var fileNames = new DirectoryInfo(_path).GetFiles()
+                .Select(o => o.Name)
+                .ToList<string>();
+
+            NotesList.ItemsSource = fileNames;
+        }
+        private void Calendar_OnSelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!File.Exists(_path))
+            {
+                File.Create(System.IO.Path.Combine(_path, string.Concat(NotesCalendar.SelectedDate.Value.ToString("dd-MM-yyyy"),".txt")));
+            }
         }
 
     }

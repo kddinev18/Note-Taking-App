@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Label Content="Calendar" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="82" Width="224" FontSize="50"/>
-        <Calendar HorizontalAlignment="Left" Margin="21,97,0,0" VerticalAlignment="Top" Height="172" Width="202"/>
+        <Label Content="Calendar" HorizontalAlignment="Left" Margin="15,15,0,0" VerticalAlignment="Top" Height="82" Width="224" FontSize="50"/>
+        <Calendar x:Name="NotesCalendar" SelectedDatesChanged="Calendar_OnSelectedDatesChanged" HorizontalAlignment="Left" Margin="21,97,0,0" VerticalAlignment="Top" Height="172" Width="202"/>
         <Label Content="Notes" HorizontalAlignment="Left" Margin="444,10,0,0" VerticalAlignment="Top" FontSize="50"/>
         <ListView x:Name="NotesList" Margin="239,92,10,10" ItemsSource = "{Binding}">
             <ListView.View>
