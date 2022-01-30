@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.IO;
@@ -39,10 +40,9 @@ namespace Note_Taking_App
         }
         private void Calendar_OnSelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!File.Exists(_path))
-            {
-                File.Create(System.IO.Path.Combine(_path, string.Concat(NotesCalendar.SelectedDate.Value.ToString("dd-MM-yyyy"),".txt")));
-            }
+            var note = new NoteCreationWindow(string.Concat(NotesCalendar.SelectedDate.Value.ToString("dd-MM-yyyy"), ".txt"),_path);
+            note.Show();
+            this.Close();
         }
 
     }
