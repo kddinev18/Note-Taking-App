@@ -67,21 +67,22 @@ namespace Note_Taking_App
             this.Close();
         }
 
-        private void Edit_Note(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Read_Note(object sender, RoutedEventArgs e)
+        private void Delete_Note(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             FileName fileName = button.DataContext as FileName;
-            
+            File.Delete(System.IO.Path.Combine(_path, fileName.name));
+            ListContent();
         }
 
-        private void Delete_Note(object sender, RoutedEventArgs e)
+        private void Open_Note(object sender, RoutedEventArgs e)
         {
+            Button button = sender as Button;
+            FileName fileName = button.DataContext as FileName;
+            string content = File.ReadAllText(System.IO.Path.Combine(_path, fileName.name));
 
+            var noteEdit = new NoteEditor(content, fileName.name);
+            noteEdit.Show();
         }
     }
 }

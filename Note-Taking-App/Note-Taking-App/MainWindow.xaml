@@ -7,31 +7,54 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Label Content="Calendar" HorizontalAlignment="Left" Margin="15,15,0,0" VerticalAlignment="Top" Height="82" Width="224" FontSize="50"/>
-        <Calendar x:Name="NotesCalendar" SelectedDatesChanged="Calendar_OnSelectedDatesChanged" HorizontalAlignment="Left" Margin="21,97,0,0" VerticalAlignment="Top" Height="172" Width="202"/>
-        <Label Content="Notes" HorizontalAlignment="Left" Margin="444,10,0,0" VerticalAlignment="Top" FontSize="50"/>
-        <StackPanel>
-            <ListView x:Name="NotesList" Margin="239,92,10,10" ItemsSource = "{Binding}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
 
-                            <TextBox x:Name="NoteName" Text="{Binding name, Mode=TwoWay}" Grid.Column="0" IsReadOnly="True"/>
+            <Label Content="Calendar" HorizontalAlignment="Center" VerticalAlignment="Center" Height="82" Width="224" FontSize="50" Grid.Row="0"/>
+            <Calendar x:Name="NotesCalendar" SelectedDatesChanged="Calendar_OnSelectedDatesChanged" HorizontalAlignment="Center" VerticalAlignment="Top" Height="172" Width="202" Grid.Row="1"/>
 
-                            <Button x:Name="Edit" Content="Edit" Click="Edit_Note" Grid.Column="1"/>
-                            <Button x:Name="Read" Content="Read" Click="Read_Note" Grid.Column="2"/>
-                            <Button x:Name="Delete" Content="Delete" Click="Delete_Note" Grid.Column="3"/>
+        </Grid>
+        
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
 
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
+            <Label Content="Notes" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Grid.Row="0"/>
+
+            <Grid Grid.Row="1">
+                <ScrollViewer>
+                    <ListView x:Name="NotesList" ItemsSource = "{Binding}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox x:Name="NoteName" Text="{Binding name, Mode=TwoWay}" Grid.Column="0" IsReadOnly="True"/>
+
+                                    <Button x:Name="Open" Content="Open" Click="Open_Note" Grid.Column="1"/>
+                                    <Button x:Name="Delete" Content="Delete" Click="Delete_Note" Grid.Column="2"/>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+            </Grid> 
+
+        </Grid>
+        
     </Grid>
 </Window>

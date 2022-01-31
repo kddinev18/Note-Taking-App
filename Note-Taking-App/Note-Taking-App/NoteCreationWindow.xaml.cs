@@ -35,7 +35,9 @@ namespace Note_Taking_App
         {
             if (!File.Exists(System.IO.Path.Combine(_path, string.Concat(NoteName.Text, ".txt"))))
             {
-                File.Create(System.IO.Path.Combine(_path, string.Concat(NoteName.Text, ".txt")));
+                var noteFile = File.Create(System.IO.Path.Combine(_path, string.Concat(NoteName.Text, ".txt")));
+                noteFile.Close();
+
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
                 this.Close();
