@@ -67,5 +67,21 @@ namespace Note_Taking_App
             this.Close();
         }
 
+        private void Edit_Note(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Read_Note(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            FileName fileName = button.DataContext as FileName;
+            
+        }
+
+        private void Delete_Note(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
