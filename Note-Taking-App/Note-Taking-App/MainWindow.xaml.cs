@@ -50,6 +50,13 @@ namespace Note_Taking_App
             ListContent();
             this.DataContext = this;
         }
+        public MainWindow(string newFileName, string fileContent, string oldFileName)
+        {
+            InitializeComponent();
+            _path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Notes");
+            ListContent();
+            this.DataContext = this;
+        }
         public void ListContent()
         {
             Directory.CreateDirectory(_path);
@@ -81,7 +88,7 @@ namespace Note_Taking_App
             FileName fileName = button.DataContext as FileName;
             string content = File.ReadAllText(System.IO.Path.Combine(_path, fileName.name));
 
-            var noteEdit = new NoteEditor(content, fileName.name);
+            var noteEdit = new NoteEditor(content, fileName.name, _path);
             noteEdit.Show();
         }
     }
