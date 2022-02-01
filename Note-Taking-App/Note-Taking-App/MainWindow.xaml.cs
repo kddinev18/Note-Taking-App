@@ -88,7 +88,7 @@ namespace Note_Taking_App
             FileName fileName = button.DataContext as FileName;
             string content = File.ReadAllText(System.IO.Path.Combine(_path, fileName.name));
 
-            var noteEdit = new NoteEditor(content, fileName.name, _path);
+            var noteEdit = new NoteEditor(content, fileName.name.Split(".txt")[0], _path);
             noteEdit.Show();
         }
     }

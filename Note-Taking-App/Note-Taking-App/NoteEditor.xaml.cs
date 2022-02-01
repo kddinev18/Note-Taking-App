@@ -27,12 +27,10 @@ namespace Note_Taking_App
         private string _archivedNoteName;
 
         private readonly string _path;
-
-        private bool _isContentChanged = false;
-        private bool _isNameChanged = false;
         public NoteEditor(string content, string name, string path)
         {
             InitializeComponent();
+            _path = path;
             _archivedNoteName = name; 
             NoteNameProp = name;
             NoteContentProp = content;
@@ -42,29 +40,34 @@ namespace Note_Taking_App
         }
         ~NoteEditor()
         {
-            /*if(NoteNameProp != _archivedNoteName)
+            SaveChnages();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            SaveChnages();
+            MessageBox.Show("Chnaages saved", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void SaveChnages()
+        {
+            if (NoteNameProp != _archivedNoteName)
             {
                 try
                 {
-                    File.Move(_archivedNoteName, NoteNameProp);
+                    File.Move(System.IO.Path.Combine(_path, _archivedNoteName),
+                              System.IO.Path.Combine(_path, NoteNameProp));
+                    File.WriteAllText(System.IO.Path.Combine(_path, NoteNameProp), NoteContentProp);
                 }
-                catch(Exception e)
+                catch (Exception exception)
                 {
-                    MessageBox.Show(e.Message, "Message", MessageBoxButton.OK, MessageBoxImage.Error);
-                    var noteEdit = new NoteEditor();
+                    MessageBox.Show(exception.Message, "Message", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }*/
-            throw new NotImplementedException(";-;");
-        }
-
-        private void NoteContent_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            _isContentChanged = true;
-        }
-
-        private void NoteName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            _isNameChanged = true;
+            }
+            else
+            {
+                File.WriteAllText(System.IO.Path.Combine(_path, string.Concat(NoteNameProp, ".txt")), NoteContentProp);
+            }
         }
     }
 }

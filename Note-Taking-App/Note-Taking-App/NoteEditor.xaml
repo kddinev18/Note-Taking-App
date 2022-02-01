@@ -13,10 +13,18 @@
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
 
-        <TextBox Name = "NoteName" Text = "{Binding Path=NoteNameProp, Mode=TwoWay}" Grid.Row="0" TextChanged="NoteName_TextChanged"/>
-
+        <Grid Grid.Row="0
+              ">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name = "NoteName" HorizontalAlignment="Center" VerticalAlignment="Center" Text = "{Binding Path=NoteNameProp, Mode=TwoWay}" Grid.Column="0" FontSize="40"/>
+            <Button x:Name="Save" Content="Save" Click="Save_Click" Grid.Column="1" FontSize="40"/>
+        </Grid>
+        
         <Grid Grid.Row="1">
-            <TextBox Name ="NoteContent" Text = "{Binding Path=NoteContentProp, Mode=TwoWay}" TextChanged="NoteContent_TextChanged"/>
+            <TextBox Name ="NoteContent" Text = "{Binding Path=NoteContentProp, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
         </Grid>
  
         
