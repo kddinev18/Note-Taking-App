@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,23 +24,29 @@ namespace Note_Taking_App
         private readonly string _path;
         private readonly string _recommendedName;
 
-        public NoteCreationWindow(string recommendedName, string path)
+        private ObservableCollection<FileName> _fileNames;
+        private Action<ObservableCollection<FileName>> _listContent;
+
+        public NoteCreationWindow(string recommendedName, string path, ref ObservableCollection<FileName> fileNames, Action<ObservableCollection<FileName>> ListContent)
         {
+            _fileNames = fileNames;
+            _listContent = ListContent;
+
             _recommendedName = recommendedName;
             _path = path;
             InitializeComponent();
             NoteName.Text = recommendedName;
         }
 
-        private void OpenMainWindow()
+        private void CreateNote()
         {
             if (!File.Exists(System.IO.Path.Combine(_path, string.Concat(NoteName.Text, ".txt"))))
             {
                 var noteFile = File.Create(System.IO.Path.Combine(_path, string.Concat(NoteName.Text, ".txt")));
                 noteFile.Close();
 
-                var mainWindow = new MainWindow();
-                mainWindow.Show();
+                _listContent(_fileNames);
+
                 this.Close();
             }
             else
@@ -53,28 +60,20 @@ namespace Note_Taking_App
             //Check if the user has pressed "Enter" while he is on "username" input field
             if (e.Key == Key.Enter)
             {
-                OpenMainWindow();
+                CreateNote();
             }
 
         }
 
         private void Continue_Click(object sender, EventArgs e)
         {
-            OpenMainWindow();
+            CreateNote();
         }
 
 
         private void Cancel_Click(object sender, EventArgs e)
         {
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
             this.Close();
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
         }
     }
 }

@@ -51,9 +51,9 @@ namespace Note_Taking_App
         }
         private void Calendar_OnSelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            var note = new NoteCreationWindow(NotesCalendar.SelectedDate.Value.ToString("dd-MM-yyyy"),_path);
+            var note = new NoteCreationWindow(NotesCalendar.SelectedDate.Value.ToString("dd-MM-yyyy"),_path,
+                ref fileNames,ListContent);
             note.Show();
-            this.Close();
         }
 
         private void Delete_Note(object sender, RoutedEventArgs e)
