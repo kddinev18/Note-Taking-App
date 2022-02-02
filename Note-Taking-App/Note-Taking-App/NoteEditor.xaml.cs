@@ -64,6 +64,7 @@ namespace Note_Taking_App
                     File.Move(System.IO.Path.Combine(_path, string.Concat(_archivedNoteName,".txt")),
                               System.IO.Path.Combine(_path, string.Concat(NoteNameProp, ".txt")));
                     File.WriteAllText(System.IO.Path.Combine(_path, string.Concat(NoteNameProp, ".txt")), NoteContentProp);
+                    _listContent(_fileNames);
                 }
                 catch (Exception exception)
                 {
@@ -74,7 +75,6 @@ namespace Note_Taking_App
             {
                 File.WriteAllText(System.IO.Path.Combine(_path, string.Concat(NoteNameProp, ".txt")), NoteContentProp);
             }
-            _listContent(_fileNames);
         }
     }
 }
