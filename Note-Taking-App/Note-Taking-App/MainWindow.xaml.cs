@@ -17,50 +17,32 @@ using System.Collections.ObjectModel;
 
 namespace Note_Taking_App
 {
-    public class FileName
-    {
-        public FileName()
-        {
-            name = String.Empty;
-        }
-        public FileName(string name)
-        {
-            this.name = name;
-        }
-
-        public string name { get; set; }
-        public override string ToString()
-        {
-            return name;
-        }
-    }
-
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<FileName> fileNames { get; set; }
+        public ObservableCollection<FileName> fileNames;// { get; set; }
         private readonly string _path;
         public MainWindow()
         {
             InitializeComponent();
             _path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Notes");
-            ListContent();
+            ListContent(fileNames);
             this.DataContext = this;
         }
         public MainWindow(string newFileName, string fileContent, string oldFileName)
         {
             InitializeComponent();
             _path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Notes");
-            ListContent();
+            ListContent(fileNames);
             this.DataContext = this;
         }
-        public void ListContent()
+        public void ListContent(ObservableCollection<FileName> fileNames)
         {
             Directory.CreateDirectory(_path);
-            fileNames = new ObservableCollection<FileName>(new DirectoryInfo(_path).GetFiles()
+            fileNames = new ObservableCollection<FileName>(new DirectoryInfo(_path).GetFiles("*.txt")
                 .Select(o => new FileName(o.Name))
                 .ToList<FileName>());
 
@@ -79,7 +61,7 @@ namespace Note_Taking_App
             Button button = sender as Button;
             FileName fileName = button.DataContext as FileName;
             File.Delete(System.IO.Path.Combine(_path, fileName.name));
-            ListContent();
+            ListContent(fileNames);
         }
 
         private void Open_Note(object sender, RoutedEventArgs e)
@@ -88,7 +70,7 @@ namespace Note_Taking_App
             FileName fileName = button.DataContext as FileName;
             string content = File.ReadAllText(System.IO.Path.Combine(_path, fileName.name));
 
-            var noteEdit = new NoteEditor(content, fileName.name.Split(".txt")[0], _path);
+            var noteEdit = new NoteEditor(content, fileName.name.Split(".txt")[0], _path, ref fileNames, ListContent);
             noteEdit.Show();
         }
     }
