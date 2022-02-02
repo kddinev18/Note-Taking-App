@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Note_Taking_App
+namespace Note_Taking_App.Module
 {
     public class FileName
     {

@@ -14,8 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using Note_Taking_App.Module;
 
-namespace Note_Taking_App
+namespace Note_Taking_App.ViewModule
 {
 
     /// <summary>

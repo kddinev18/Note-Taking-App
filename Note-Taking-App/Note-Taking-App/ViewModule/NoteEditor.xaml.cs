@@ -13,8 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Note_Taking_App.Module;
 
-namespace Note_Taking_App
+namespace Note_Taking_App.ViewModule
 {
     /// <summary>
     /// Interaction logic for NoteEditor.xaml
