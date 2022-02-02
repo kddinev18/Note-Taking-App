@@ -71,5 +71,10 @@ namespace Note_Taking_App
             this.Close();
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
     }
 }
