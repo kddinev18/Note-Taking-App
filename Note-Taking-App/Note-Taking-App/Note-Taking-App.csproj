@@ -7,4 +7,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Note-Taking-App-BusinessLogic\Note-Taking-App-BusinessLogic.csproj" />
+  </ItemGroup>
+
 </Project>

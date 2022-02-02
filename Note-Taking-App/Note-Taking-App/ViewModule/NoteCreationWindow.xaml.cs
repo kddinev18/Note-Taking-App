@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Note_Taking_App.Module;
+using Note_Taking_App_BusinessLogic;
 
 namespace Note_Taking_App.ViewModule
 {
@@ -25,12 +25,10 @@ namespace Note_Taking_App.ViewModule
         private readonly string _path;
         private readonly string _recommendedName;
 
-        private ObservableCollection<FileName> _fileNames;
         private Action<ObservableCollection<FileName>> _listContent;
 
-        public NoteCreationWindow(string recommendedName, string path, ref ObservableCollection<FileName> fileNames, Action<ObservableCollection<FileName>> ListContent)
+        public NoteCreationWindow(string recommendedName, string path, Action<ObservableCollection<FileName>> ListContent)
         {
-            _fileNames = fileNames;
             _listContent = ListContent;
 
             _recommendedName = recommendedName;
@@ -39,36 +37,21 @@ namespace Note_Taking_App.ViewModule
             NoteName.Text = recommendedName;
         }
 
-        private void CreateNote()
-        {
-            if (!File.Exists(System.IO.Path.Combine(_path, string.Concat(NoteName.Text, ".txt"))))
-            {
-                var noteFile = File.Create(System.IO.Path.Combine(_path, string.Concat(NoteName.Text, ".txt")));
-                noteFile.Close();
-
-                _listContent(_fileNames);
-
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("The note already exist", "Message", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
         private void NoteName_KeyDown(object sender, KeyEventArgs e)
         {
             //Check if the user has pressed "Enter" while he is on "username" input field
             if (e.Key == Key.Enter)
             {
-                CreateNote();
+                Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.CreateNote(_path, NoteName.Text);
             }
 
         }
 
         private void Continue_Click(object sender, EventArgs e)
         {
-            CreateNote();
+            Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.CreateNote(_path, NoteName.Text);
+            _listContent(Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.GetNoteNames(_path));
+            this.Close();
         }
 
 

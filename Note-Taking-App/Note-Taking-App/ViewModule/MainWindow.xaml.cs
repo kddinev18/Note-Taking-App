@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using Note_Taking_App.Module;
+using Note_Taking_App_BusinessLogic;
 
 namespace Note_Taking_App.ViewModule
 {
@@ -24,36 +24,23 @@ namespace Note_Taking_App.ViewModule
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<FileName> fileNames;// { get; set; }
         private readonly string _path;
         public MainWindow()
         {
             InitializeComponent();
-            _path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Notes");
-            ListContent(fileNames);
-            this.DataContext = this;
-        }
-        public MainWindow(string newFileName, string fileContent, string oldFileName)
-        {
-            InitializeComponent();
-            _path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Notes");
-            ListContent(fileNames);
+            _path = Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.GetNotePath();
+            Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.CreateNoteDirectory(_path);
+            ListContent(Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.GetNoteNames(_path));
             this.DataContext = this;
         }
         public void ListContent(ObservableCollection<FileName> fileNames)
         {
-            Directory.CreateDirectory(_path);
-            fileNames = new ObservableCollection<FileName>(new DirectoryInfo(_path).GetFiles("*.txt")
-                .Select(o => new FileName(o.Name))
-                .ToList<FileName>());
-
             NotesList.ItemsSource = fileNames;
             NotesList.DataContext = fileNames;
         }
         private void Calendar_OnSelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            var note = new NoteCreationWindow(NotesCalendar.SelectedDate.Value.ToString("dd-MM-yyyy"),_path,
-                ref fileNames,ListContent);
+            var note = new NoteCreationWindow(NotesCalendar.SelectedDate.Value.ToString("dd-MM-yyyy"),_path,ListContent);
             note.Show();
         }
 
@@ -61,17 +48,17 @@ namespace Note_Taking_App.ViewModule
         {
             Button button = sender as Button;
             FileName fileName = button.DataContext as FileName;
-            File.Delete(System.IO.Path.Combine(_path, fileName.name));
-            ListContent(fileNames);
+            Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.DeleteNote(_path, fileName.name);
+            ListContent(Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.GetNoteNames(_path));
         }
 
         private void Open_Note(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             FileName fileName = button.DataContext as FileName;
-            string content = File.ReadAllText(System.IO.Path.Combine(_path, fileName.name));
+            string content = Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.ReadNote(_path, fileName.name);
 
-            var noteEdit = new NoteEditor(content, fileName.name.Split(".txt")[0], _path, ref fileNames, ListContent);
+            var noteEdit = new NoteEditor(content, fileName.name.Split(".txt")[0], _path, ListContent);
             noteEdit.Show();
         }
     }

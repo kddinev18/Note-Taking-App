@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Note-Taking-App", "Note-Taking-App\Note-Taking-App.csproj", "{84A697A0-1789-4E1C-9684-E85D2CAE819F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Note-Taking-App", "Note-Taking-App\Note-Taking-App.csproj", "{84A697A0-1789-4E1C-9684-E85D2CAE819F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Note-Taking-App-BusinessLogic", "Note-Taking-App-BusinessLogic\Note-Taking-App-BusinessLogic.csproj", "{D0AA8D56-1079-468D-AD90-0324E8E4CC82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{84A697A0-1789-4E1C-9684-E85D2CAE819F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84A697A0-1789-4E1C-9684-E85D2CAE819F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84A697A0-1789-4E1C-9684-E85D2CAE819F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0AA8D56-1079-468D-AD90-0324E8E4CC82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0AA8D56-1079-468D-AD90-0324E8E4CC82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0AA8D56-1079-468D-AD90-0324E8E4CC82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0AA8D56-1079-468D-AD90-0324E8E4CC82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

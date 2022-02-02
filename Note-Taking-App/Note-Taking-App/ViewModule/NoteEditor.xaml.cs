@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Note_Taking_App.Module;
+using Note_Taking_App_BusinessLogic;
 
 namespace Note_Taking_App.ViewModule
 {
@@ -28,15 +28,13 @@ namespace Note_Taking_App.ViewModule
 
         private string _archivedNoteName;
         private string _archivedNoteContent;
-        private ObservableCollection<FileName> _fileNames;
         private Action<ObservableCollection<FileName>> _listContent;
 
         private readonly string _path;
-        public NoteEditor(string content, string name, string path, ref ObservableCollection<FileName> fileNames, Action<ObservableCollection<FileName>> ListContent)
+        public NoteEditor(string content, string name, string path, Action<ObservableCollection<FileName>> ListContent)
         {
             InitializeComponent();
 
-            _fileNames = fileNames;
             _listContent = ListContent;
 
             _path = path;
@@ -52,31 +50,10 @@ namespace Note_Taking_App.ViewModule
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            SaveChnages();
+            Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.SaveChnages(_path, NoteName.Text, _archivedNoteName, NoteContentProp);
+            _listContent(Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.GetNoteNames(_path));
             MessageBox.Show("Chnaages saved", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
             
-        }
-
-        private void SaveChnages()
-        {
-            if (NoteNameProp != _archivedNoteName)
-            {
-                try
-                {
-                    File.Move(System.IO.Path.Combine(_path, string.Concat(_archivedNoteName,".txt")),
-                              System.IO.Path.Combine(_path, string.Concat(NoteNameProp, ".txt")));
-                    File.WriteAllText(System.IO.Path.Combine(_path, string.Concat(NoteNameProp, ".txt")), NoteContentProp);
-                    _listContent(_fileNames);
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.Message, "Message", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
-            {
-                File.WriteAllText(System.IO.Path.Combine(_path, string.Concat(NoteNameProp, ".txt")), NoteContentProp);
-            }
         }
     }
 }
