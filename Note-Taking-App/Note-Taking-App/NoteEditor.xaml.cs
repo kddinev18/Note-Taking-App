@@ -43,6 +43,7 @@ namespace Note_Taking_App
             _archivedNoteContent = content;
             NoteNameProp = name;
             NoteContentProp = content;
+
             NoteName.Text = NoteNameProp;
             NoteContent.Text = NoteContentProp;
             this.DataContext = this;

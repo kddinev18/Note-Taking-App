@@ -7,10 +7,24 @@
         mc:Ignorable="d"
         Title="NoteCreationWindow" Height="400" Width="400">
     <Grid>
-        <Label Content="Note Name" HorizontalAlignment="Center" Margin="0,32,0,0" VerticalAlignment="Top" FontSize="50"/>
-        <TextBox x:Name="NoteName" Text="" KeyDown="NoteName_KeyDown" MinWidth="300" FontSize="16" Padding="10 5 10 5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
-        <Button Click="Cancel_Click" Content="Cancel" HorizontalAlignment="Left" Margin="67,287,0,0" VerticalAlignment="Top" Height="49" Width="129" FontSize="25"/>
-        <Button Click="Continue_Click" Content="Continue" HorizontalAlignment="Left" Margin="204,287,0,0" VerticalAlignment="Top" Height="49" Width="129" FontSize="25"/>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Label Content="Note Name" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Grid.Row="0"/>
+        <TextBox x:Name="NoteName" Text="" KeyDown="NoteName_KeyDown" MinWidth="300" FontSize="16" Padding="10 5 10 5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
+
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Click="Cancel_Click" Content="Cancel" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="49" Width="129" FontSize="25" Grid.Column="0"/>
+            <Button Click="Continue_Click" Content="Continue" HorizontalAlignment="Center" VerticalAlignment="Center" Height="49" Width="129" FontSize="25" Grid.Column="1"/>
+        </Grid>
     </Grid>
 </Window>
