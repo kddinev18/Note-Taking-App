@@ -30,7 +30,7 @@ namespace Note_Taking_App.ViewModule
             InitializeComponent();
             _path = MainWindowLogic.GetNotePath();
             MainWindowLogic.CreateNoteDirectory(_path);
-            ListContent(MainWindowLogic.GetNoteNames(_path));
+            ListContent(FileName.GetNoteNames(_path));
             this.DataContext = this;
         }
         public void ListContent(ObservableCollection<FileName> fileNames)
@@ -48,17 +48,17 @@ namespace Note_Taking_App.ViewModule
         {
             Button button = sender as Button;
             FileName fileName = button.DataContext as FileName;
-            MainWindowLogic.DeleteNote(_path, fileName.name);
-            ListContent(MainWindowLogic.GetNoteNames(_path));
+            MainWindowLogic.DeleteNote(_path, fileName.Name);
+            ListContent(FileName.GetNoteNames(_path));
         }
 
         private void Open_Note(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             FileName fileName = button.DataContext as FileName;
-            string content = MainWindowLogic.ReadNote(_path, fileName.name);
+            string content = MainWindowLogic.ReadNote(_path, fileName.Name);
 
-            var noteEdit = new NoteEditor(content, fileName.name.Split(".txt")[0], _path, ListContent);
+            var noteEdit = new NoteEditor(content, fileName.Name.Split(".txt")[0], _path, ListContent);
             noteEdit.Show();
         }
     }

@@ -42,7 +42,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBox x:Name="NoteName" Text="{Binding name, Mode=TwoWay}" Grid.Column="0" IsReadOnly="True"/>
+                                    <TextBox x:Name="NoteName" Text="{Binding Name, Mode=TwoWay}" Grid.Column="0" IsReadOnly="True"/>
 
                                     <Button x:Name="Open" Content="Open" Click="Open_Note" Grid.Column="1"/>
                                     <Button x:Name="Delete" Content="Delete" Click="Delete_Note" Grid.Column="2"/>

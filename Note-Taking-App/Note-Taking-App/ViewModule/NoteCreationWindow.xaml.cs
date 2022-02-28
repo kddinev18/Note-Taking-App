@@ -42,15 +42,15 @@ namespace Note_Taking_App.ViewModule
             //Check if the user has pressed "Enter" while he is on "username" input field
             if (e.Key == Key.Enter)
             {
-                Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.CreateNote(_path, NoteName.Text);
+                NoteCreationWindowLogic.CreateNote(_path, NoteName.Text);
             }
 
         }
 
         private void Continue_Click(object sender, EventArgs e)
         {
-            Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.CreateNote(_path, NoteName.Text);
-            _listContent(MainWindowLogic.GetNoteNames(_path));
+            NoteCreationWindowLogic.CreateNote(_path, NoteName.Text);
+            _listContent(FileName.GetNoteNames(_path));
             this.Close();
         }
 
