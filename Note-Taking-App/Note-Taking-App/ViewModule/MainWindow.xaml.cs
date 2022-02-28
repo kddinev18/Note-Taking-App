@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using Note_Taking_App_BusinessLogic;
+using Note_Taking_App.Model;
 
 namespace Note_Taking_App.ViewModule
 {
@@ -28,9 +28,9 @@ namespace Note_Taking_App.ViewModule
         public MainWindow()
         {
             InitializeComponent();
-            _path = Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.GetNotePath();
-            Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.CreateNoteDirectory(_path);
-            ListContent(Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.GetNoteNames(_path));
+            _path = MainWindowLogic.GetNotePath();
+            MainWindowLogic.CreateNoteDirectory(_path);
+            ListContent(MainWindowLogic.GetNoteNames(_path));
             this.DataContext = this;
         }
         public void ListContent(ObservableCollection<FileName> fileNames)
@@ -48,15 +48,15 @@ namespace Note_Taking_App.ViewModule
         {
             Button button = sender as Button;
             FileName fileName = button.DataContext as FileName;
-            Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.DeleteNote(_path, fileName.name);
-            ListContent(Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.GetNoteNames(_path));
+            MainWindowLogic.DeleteNote(_path, fileName.name);
+            ListContent(MainWindowLogic.GetNoteNames(_path));
         }
 
         private void Open_Note(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             FileName fileName = button.DataContext as FileName;
-            string content = Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.ReadNote(_path, fileName.name);
+            string content = MainWindowLogic.ReadNote(_path, fileName.name);
 
             var noteEdit = new NoteEditor(content, fileName.name.Split(".txt")[0], _path, ListContent);
             noteEdit.Show();

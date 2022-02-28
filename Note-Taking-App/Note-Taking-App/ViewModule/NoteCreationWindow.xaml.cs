@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Note_Taking_App_BusinessLogic;
+using Note_Taking_App.Model;
 
 namespace Note_Taking_App.ViewModule
 {
@@ -50,7 +50,7 @@ namespace Note_Taking_App.ViewModule
         private void Continue_Click(object sender, EventArgs e)
         {
             Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.CreateNote(_path, NoteName.Text);
-            _listContent(Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.GetNoteNames(_path));
+            _listContent(MainWindowLogic.GetNoteNames(_path));
             this.Close();
         }
 

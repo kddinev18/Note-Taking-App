@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Note_Taking_App_BusinessLogic;
+using Note_Taking_App.Model;
 
 namespace Note_Taking_App.ViewModule
 {
@@ -51,7 +51,7 @@ namespace Note_Taking_App.ViewModule
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.SaveChnages(_path, NoteName.Text, _archivedNoteName, NoteContentProp);
-            _listContent(Note_Taking_App_BusinessLogic.Note_Taking_App_BusinessLogic.GetNoteNames(_path));
+            _listContent(MainWindowLogic.GetNoteNames(_path));
             MessageBox.Show("Chnaages saved", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
             
         }
